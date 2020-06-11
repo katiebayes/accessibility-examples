@@ -31,12 +31,11 @@ const Th = props => {
 const Tr = props => {
   const { values } = props;
   const keys = Object.keys(values);
-  console.log(keys);
   return (
     <tr>
       {keys.map(eachKey => {
         return (
-          <td>{values[eachKey]}</td>
+          <td key={eachKey}>{values[eachKey]}</td>
         )
       })}
     </tr>
@@ -44,6 +43,8 @@ const Tr = props => {
 }
 
 const Table = props => {
+  // you can move the standard stuff into a reusable component 
+  // so you don't have to touch it in layouts
   const numberOfColumns = tableHeaders.length;
   return (
     <table>
@@ -54,9 +55,9 @@ const Table = props => {
       </colgroup>
       <thead>
       <tr>
-        {props.headers.map(each => {
+        {props.headers.map((each, key) => {
           return (
-            <Th>{each}</Th>
+            <Th key={key}>{each}</Th>
           )
         })}
       </tr>
@@ -73,22 +74,11 @@ function App() {
     <article className="App">
       <h1>Accessibility Tips</h1>
       <section>
-        <h2>
-        </h2>
-        <pre style={{textAlign: "left"}}>
-          {`
-          h2 {
-            font-size: 1.2em;
-            color: purple;
-          }
-          `}
-        </pre>
-      </section>
-      <section>
-        <h2>Tables</h2>
+        <h2>Use W3 Standard Tables</h2>
+        <h3>It will make everything easier!</h3>
         <Table headers={tableHeaders}>
-          {tableValuesUsingJSON.map(each => {
-            return <Tr values={each} />
+          {tableValuesUsingJSON.map((each, key) => {
+            return <Tr key={key} values={each} />
           })}
         </Table>
       </section>
